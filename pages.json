@@ -1,0 +1,152 @@
+{
+  "pages": [
+    //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+    {
+      "path": "pages/index/index",
+      "style": {
+        "navigationBarTitleText": "首页",
+        "enablePullDownRefresh": true
+      }
+    },
+    {
+      "path": "pages/booking/venue-list",
+      "style": {
+        "navigationBarTitleText": "场馆",
+        "enablePullDownRefresh": true
+      }
+    },
+    {
+      "path": "pages/my/my",
+      "style": {
+        "navigationBarTitleText": "我的",
+        "enablePullDownRefresh": true
+      }
+    },
+    {
+      "path": "pages/login-registration/login/user-login",
+      "style": {
+        "navigationBarTitleText": "登录",
+        "enablePullDownRefresh": true
+      }
+    },
+    {
+      "path": "pages/login-registration/registration/registration",
+      "style": {
+        "navigationBarTitleText": "注册",
+        "enablePullDownRefresh": true
+      }
+    },
+    {
+      "path": "pages/booking/booking-page",
+      "style": {
+        "navigationBarTitleText": "场地预约",
+        "enablePullDownRefresh": true
+      }
+    },
+    {
+      "path": "pages/booking/unopen-venue",
+      "style": {
+        "navigationBarTitleText": "场地预约",
+        "enablePullDownRefresh": true
+      }
+    },
+    {
+      "path": "pages/order/to-be-paid",
+      "style": {
+        "navigationBarTitleText": "待支付订单",
+        "enablePullDownRefresh": true
+      }
+    },
+    {
+      "path": "pages/order/to-be-used",
+      "style": {
+        "navigationBarTitleText": "待使用",
+        "enablePullDownRefresh": true
+      }
+    },
+    {
+      "path": "pages/order/canceled",
+      "style": {
+        "navigationBarTitleText": "已取消"
+      }
+    },
+    {
+      "path": "pages/order/after-sales",
+      "style": {
+        "navigationBarTitleText": "售后"
+      }
+    },
+    {
+      "path": "pages/order/finished",
+      "style": {
+        "navigationBarTitleText": "已完成"
+      }
+    },
+    {
+      "path": "pages/my/changeNickname",
+      "style": {
+        "navigationBarTitleText": "修改昵称"
+      }
+    },
+    {
+      "path": "pages/my/changePassword",
+      "style": {
+        "navigationBarTitleText": "修改密码"
+      }
+    },
+    {
+      "path": "pages/my/changeAvatar",
+      "style": {
+        "navigationBarTitleText": "更换头像"
+      }
+    }
+  ],
+  "globalStyle": {
+    "navigationBarTextStyle": "white",
+    "navigationBarTitleText": "",
+    "navigationBarBackgroundColor": "#11c53e",
+    "backgroundColor": "#F8F8F8"
+  },
+  "tabBar": {
+    "color": "#333",
+    "selectedColor": "#11c53e",
+    "backgroundColor": "#fff",
+    "borderStyle": "black",
+    "list": [
+      {
+        "text": "首页",
+        "pagePath": "pages/index/index",
+        "iconPath": "static/tabBar_icon/home.png",
+        "selectedIconPath": "static/tabBar_icon/selected_my.png"
+      },
+      {
+        "text": "场馆",
+        "pagePath": "pages/booking/venue-list",
+        "iconPath": "static/tabBar_icon/shop.png",
+        "selectedIconPath": "static/tabBar_icon/selected_shop.png"
+      },
+      {
+        "text": "我的",
+        "pagePath": "pages/my/my",
+        "iconPath": "static/tabBar_icon/my.png",
+        "selectedIconPath": "static/tabBar_icon/selected_my.png"
+      }
+    ]
+  },
+  "uniIdRouter": {},
+  "condition": {
+    //模式配置，仅开发期间生效
+    "current": 0,
+    //当前激活的模式(list 的索引项)
+    "list": [
+      {
+        "name": "",
+        //模式名称
+        "path": "",
+        //启动页面，必选
+        "query": ""
+        //启动参数，在页面的onLoad函数里面得到
+      }
+    ]
+  }
+}
