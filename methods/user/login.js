@@ -30,19 +30,15 @@ function userAuth(phone, password) {
                 return
             }
             if (res.statusCode === 405) {
-                uni.showToast({
-                    title: '您尚未注册！', icon: 'none'
-                })
+                uni.showToast({title: '您尚未注册！', icon: 'none'})
                 return
             }
-            uni.showToast({
-                title: '服务器好像开了小差...', icon: "none", duration: 1000, mask: true,
-            })
-
+            uni.showToast({title: '服务器好像开了小差...', icon: "none", duration: 1000, mask: true,})
         }, fail: (err) => {
-            uni.hideLoading()
             console.log(err)
             uni.showToast({title: '发送网络请求错误！', icon: 'none', duration: 1000, mask: true,})
+        }, finally: () => {
+            uni.hideLoading()
         }
     })
 }
