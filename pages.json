@@ -65,7 +65,7 @@
       }
     },
     {
-      "path": "pages/order/canceled",
+      "path": "pages/order/cancelled",
       "style": {
         "navigationBarTitleText": "已取消"
       }
@@ -77,7 +77,7 @@
       }
     },
     {
-      "path": "pages/order/finished",
+      "path": "pages/order/completed",
       "style": {
         "navigationBarTitleText": "已完成"
       }

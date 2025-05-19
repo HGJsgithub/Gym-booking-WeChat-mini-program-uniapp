@@ -17,7 +17,7 @@
 		<view class="venue-card" hover-class="click-class" hover-stay-time="100"
 			@click="navigateTo(path,'乒乓球','tableTennis')">
 			<view class="venue-icon-and-name">
-				<image src="../../static/sports_icon/tabletennis.png" mode="widthFix" class="venue-icon"></image>
+				<image src="../../static/sports_icon/tableTennis.png" mode="widthFix" class="venue-icon"></image>
 				<view class="venue-name">
 					乒乓球馆
 				</view>
@@ -57,7 +57,7 @@
 
 		<view class="venue-card" hover-class="click-class" hover-stay-time="100" @click="navigateTo(unopenPath,'游泳')">
 			<view class="venue-icon-and-name">
-				<image src="../../static/sports_icon/badminton.png" mode="widthFix" class="venue-icon"></image>
+				<image src="../../static/sports_icon/swimming.png" mode="widthFix" class="venue-icon"></image>
 				<view class="venue-name">
 					游泳馆
 				</view>
@@ -71,7 +71,7 @@
 		<view class="venue-card" style="margin-bottom: 45rpx;" hover-class="click-class" hover-stay-time="100"
 			@click="navigateTo(unopenPath,'健身')">
 			<view class="venue-icon-and-name">
-				<image src="../../static/sports_icon/bodybuilding.png" mode="widthFix" class="venue-icon"></image>
+				<image src="../../static/sports_icon/bodyBuilding.png" mode="widthFix" class="venue-icon"></image>
 				<view class="venue-name">
 					健身房
 				</view>
@@ -125,10 +125,8 @@
 
 
 			.venue-icon-and-name {
-				padding: 20rpx;
-				padding-left: 6%;
-				padding-right: 35rpx;
-				display: flex;
+        padding: 20rpx 35rpx 20rpx 6%;
+        display: flex;
 
 				.venue-icon {
 					width: 13%

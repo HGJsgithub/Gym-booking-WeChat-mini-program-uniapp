@@ -1,5 +1,5 @@
 <template>
-  <view class="to-be-used">
+  <view class="after-sales">
     <view class="Card" v-if="show">
       <after-sales-card v-for="(_,index) in orderList" :key="index"
                         :afterSalesOrder="orderList[index]"></after-sales-card>
@@ -12,14 +12,15 @@
 
 <script setup>
 import getOrderList from "@/methods/order/get-order-list";
+import {Processing} from "@/common/constData/order-state";
 
-uni.showLoading({
-  title: '加载中'
-});
+uni.showLoading({title: '加载中'})
+
 const userID = uni.getStorageSync('userInfo').id
 let orderList = ref([])
 let show = ref(false)
-getOrderList(userID, '待处理').then((res) => {
+
+getOrderList(userID, Processing).then((res) => {
   console.log(res.msg)
   if (res.orderList) {
     orderList.value = res.orderList.reverse()
@@ -28,8 +29,7 @@ getOrderList(userID, '待处理').then((res) => {
 }).catch((err) => {
   console.log(err)
   uni.showToast({
-    title: err,
-    duration: 1000,
+    title: err, duration: 1000
   })
 }).finally(() => {
   uni.hideLoading()
@@ -41,7 +41,7 @@ page {
   background-color: #f1f3f5;
 }
 
-.to-be-used {
+.after-sales {
   width: 100%;
   display: flex;
   flex-direction: column;

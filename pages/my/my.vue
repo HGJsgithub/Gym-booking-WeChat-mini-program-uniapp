@@ -24,14 +24,14 @@
         <view>待使用</view>
       </view>
       <view class="order-option">
-        <image src="../../static/order_icon/finished.png"
-               @click="hasBeenLogin(loginState,'/pages/order/finished')">
+        <image src="../../static/order_icon/completed.png"
+               @click="hasBeenLogin(loginState,'/pages/order/completed')">
         </image>
         <view>已完成</view>
       </view>
       <view class="order-option">
         <image src="../../static/order_icon/cancelled.png"
-               @click="hasBeenLogin(loginState,'/pages/order/canceled')">
+               @click="hasBeenLogin(loginState,'/pages/order/cancelled')">
         </image>
         <view>已取消</view>
       </view>
@@ -65,7 +65,7 @@ let userInfo = ref(Object)
 let nickname = ref(String)
 let avatar = ref(String)
 // avatar.value = baseUrl + "/user/avatar/ikun.jpg"
-let loginState = ref(Boolean)
+let loginState = ref(false)
 
 onShow(() => {
   loginState.value = uni.getStorageSync('loginState')

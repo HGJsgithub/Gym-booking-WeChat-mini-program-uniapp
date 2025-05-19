@@ -1,0 +1,5 @@
+export const PendingPayment = "待支付"
+export const ToBeUsed = "待使用"
+export const Completed = "已完成"
+export const cancelled = "已取消"
+export const Processing = "待处理"

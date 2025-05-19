@@ -72,6 +72,14 @@
 <script setup>
 import getAnn from "@/methods/announcement/get-announcement";
 
+uni.getSystemInfo({
+  success: function (res) {
+    console.log('DPR：' + res.pixelRatio)
+    console.log('宽度：' + res.screenWidth)
+    console.log('高度：' + res.screenHeight)
+  }
+})
+
 let annList = ref([])
 getApp().sayhi()
 onLoad(() => {

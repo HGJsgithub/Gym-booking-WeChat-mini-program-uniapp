@@ -12,14 +12,14 @@
 
 <script setup>
 import getOrderList from "@/methods/order/get-order-list";
+import {ToBeUsed} from "@/common/constData/order-state";
 
-uni.showLoading({
-  title: '加载中'
-});
+uni.showLoading({title: '加载中'})
 const userID = uni.getStorageSync('userInfo').id
 let orderList = ref([])
 let show = ref(false)
-getOrderList(userID, '待使用').then((res) => {
+
+getOrderList(userID, ToBeUsed).then((res) => {
   console.log(res.msg)
   if (res.orderList) {
     orderList.value = res.orderList.reverse()
@@ -28,8 +28,7 @@ getOrderList(userID, '待使用').then((res) => {
 }).catch((err) => {
   console.log(err)
   uni.showToast({
-    title: err,
-    duration: 1000,
+    title: err, duration: 1000
   })
 }).finally(() => {
   uni.hideLoading()

@@ -1,6 +1,7 @@
 import saveOrder from "@/methods/order/save-order";
 import changeVenueState from "@/methods/venue/change-venue-state";
 import getOrderList from "@/methods/order/get-order-list";
+import {PendingPayment} from "@/common/constData/order-state";
 
 function createOrderDetail(id, time, price) {
     let order = new Object();
@@ -29,7 +30,7 @@ function setOrderInfo(id, userID, state, venueType, count, bookingDate, useDate,
 //venueType,count,selectedState,id1是第一个选择的场地号,id2是第二个选择的场地号,timeList,timeSlot,timeNum,priceList,userID,bookingDate,useDate
 export default function createOrder(venueTypeCN, venueTypeEN, count, selectedState, id1, id2,
                                     timeList, timeSlot, timeNum, priceList, userID, bookingDate, useDate) {
-    getOrderList(userID, '待支付').then((res) => {
+    getOrderList(userID, PendingPayment).then((res) => {
         if (res.orderList) {
             uni.showToast({
                 title: '还有未支付的订单！', icon: 'none'
@@ -71,7 +72,7 @@ export default function createOrder(venueTypeCN, venueTypeEN, count, selectedSta
             finTime = finTime1 > finTime2 ? finTime1 : finTime2 //finishTime记录最终完成的时间
             venue2 = createOrderDetail(id2 + 1, time2, price2) //创建第二个场地的订单细节
         }
-        const orderInfo = setOrderInfo(orderID, userID, '待支付', venueTypeCN, count, bookingDate, useDate, finTime, venue1, venue2, false)
+        const orderInfo = setOrderInfo(orderID, userID, PendingPayment, venueTypeCN, count, bookingDate, useDate, finTime, venue1, venue2, false)
         const todayOrTomorrow = uni.getStorageSync('todayOrTomorrow')
         changeVenueState(venueTypeEN, todayOrTomorrow, count, id1 + 1, id2 + 1, timeSlot1, timeSlot2, true, orderID)
             .then(() => {//修改场地状态成功

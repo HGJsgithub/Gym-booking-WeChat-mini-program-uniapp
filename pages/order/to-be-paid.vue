@@ -25,19 +25,21 @@
 import getOrderList from "@/methods/order/get-order-list";
 import changeOrderState from "@/methods/order/change-order-state";
 import UniCountdown from "@/uni_modules/uni-countdown_1.2.5/components/uni-countdown/uni-countdown.vue";
+//订单状态
+import {PendingPayment} from "@/common/constData/order-state";
+import {ToBeUsed} from "@/common/constData/order-state";
+import {cancelled} from "@/common/constData/order-state";
 
-uni.showLoading({
-  title: '加载中'
-})
+uni.showLoading({title: '加载中'})
 
 let orderInfo = ref([])
 let show = ref(false)
-let minute = ref(0)
-let second = ref(0)
+let minute = ref(Number)
+let second = ref(Number)
 const userID = uni.getStorageSync('userInfo').id
 
 if (orderInfo.value.length == 0) {
-  getOrderList(userID, '待支付').then((res) => {
+  getOrderList(userID, PendingPayment).then((res) => {
     if (res.orderList) {
       orderInfo.value = res.orderList[0]
       show.value = true
@@ -62,7 +64,7 @@ function pay() {
     title: "是否支付？", confirmText: "取消", cancelText: "支付", confirmColor: "#ff0000", cancelColor: "#11c53e",
     success: (option) => {
       if (option.cancel) { //点击了确认支付
-        changeOrderState(orderInfo.value.id, '待使用').then(() => { //改变订单状态成功
+        changeOrderState(orderInfo.value.id, ToBeUsed).then(() => { //改变订单状态成功
           uni.showToast({
             title: '支付成功', duration: 1000, mask: true,
             success: () => {
@@ -87,7 +89,7 @@ function cancel() {
     title: "是否取消订单？", confirmText: "否", cancelText: "是", confirmColor: "#11c53e", cancelColor: "red",
     success: (option) => {
       if (option.cancel) { //点击了确认取消
-        changeOrderState(orderInfo.value.id, '已取消').then(() => { //改变订单状态成功
+        changeOrderState(orderInfo.value.id, cancelled).then(() => { //改变订单状态成功
           uni.showToast({ //显示取消成功并跳转到首页
             title: '取消成功', duration: 750, mask: true, success: () => {
               setTimeout(() => {

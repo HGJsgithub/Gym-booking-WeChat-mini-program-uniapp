@@ -26,22 +26,18 @@ export function checkPwdSame(password, confirmPwd) {
 }
 
 export function hasBeenLogin(loginState, path) {
-    if (loginState == false) {
+    if (!loginState) {
         uni.showToast({
             title: '您还未登录！', duration: 1000, mask: true, success: () => {
                 setTimeout(() => {
-                    uni.navigateTo({
-                        url: '/pages/login-registration/login/user-login',
-                    })
+                    uni.navigateTo({url: '/pages/login-registration/login/user-login'})
                 }, 1000)
             }
         })
         return false
     } else {
         if (path.length != 0) {
-            uni.navigateTo({
-                url: path
-            })
+            uni.navigateTo({url: path})
         }
         return true
     }

@@ -1,8 +1,8 @@
 <template>
-  <view class="canceled">
+  <view class="cancelled">
     <view class="Card" v-if="show">
       <general-order-card v-for="(_,index) in orderList" :key="index" :generalOrder="orderList[index]"
-                          :pageURL="'/pages/order/canceled'"></general-order-card>
+                          :pageURL="'/pages/order/cancelled'"></general-order-card>
     </view>
     <view class="empty" v-if="!show">
       这里什么也没有哦
@@ -41,7 +41,7 @@ page {
   background-color: #f1f3f5;
 }
 
-.canceled {
+.cancelled {
   width: 100%;
   display: flex;
   flex-direction: column;

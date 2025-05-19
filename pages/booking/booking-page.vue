@@ -11,14 +11,14 @@
         </view>
       </view>
       <scroll-view class="select-venue" scroll-x="true" enable-flex="true">
-        <view class="one-venue" v-for="(_,venue_id) in venueNum" :key="venue_id">
-          <view class="venue-ID">场地 {{ venue_id + 1 }}</view>
+        <view class="one-venue" v-for="(_,venueID) in venueNum" :key="venueID">
+          <view class="venue-ID">场地 {{ venueID + 1 }}</view>
           <view class="button-list">
             <view class="one-button-view" v-for="(price,time) in priceList" :key="time">
               <button class="one-button" size="mini" type="primary" plain=true hover-class="none"
-                      :disabled="venueState[venue_id][time]"
-                      :class="{'active': selectedTable[venue_id][time]}"
-                      @click="selectedButton(venue_id,time)">
+                      :disabled="venueState[venueID][time]"
+                      :class="{'active': selectedTable[venueID][time]}"
+                      @click="selectedButton(venueID,time)">
                 ¥{{ price }}
               </button>
             </view>
@@ -34,9 +34,12 @@
       </view>
       <view>左右滑动屏幕选择更多场地</view>
     </view>
-    <button class="createOrderButton" type="primary" @click="createOrder(venueTypeCN,venueTypeEN,count,selectedTable,
-			firstSelectedVenue,secondSelectedVenue,timeList,timeSlot,timeNum,
-			priceList,userID,bookingDate,useDate)">生成订单
+    <button class="createOrderButton" type="primary"
+            @click="createOrder(
+                venueTypeCN,venueTypeEN,count,selectedTable,
+			          firstSelectedVenue,secondSelectedVenue,
+			          timeList,timeSlot,timeNum,
+			          priceList,userID,bookingDate,useDate)">生成订单
     </button>
   </view>
 
@@ -46,9 +49,11 @@ import createFormattedDate from '../../common/utils/create-formatt-date/createFo
 import createOrder from "@/methods/order/create-order";
 import getVenueState from "@/methods/venue/get-venue-state";
 
-uni.showLoading({
-  title: '加载中'
-});
+import {TimeList} from "@/common/constData/time";
+import {TimeSlot} from "@/common/constData/time";
+import {PriceList} from "@/common/constData/price";
+
+uni.showLoading({title: '加载中'})
 
 const systemInfo = uni.getSystemInfoSync()
 
@@ -77,16 +82,13 @@ const bookingDate = today
 //todayOrTomorrow用来判断用户选择预约的日期是今天还是明天。todayOrTomorrow = today 或者 tomorrow
 uni.setStorageSync('todayOrTomorrow', 'today')
 
-const timeList = [
-  "09:00-10:00", "10:00-11:00", "11:00-12:00", "12:00-13:00", "13:00-14:00", "14:00-15:00",
-  "15:00-16:00", "16:00-17:00", "17:00-18:00", "18:00-19:00", "19:00-20:00", "20:00-21:00", "21:00-22:00"
-]
+const timeList = TimeList
 
-const timeSlot = ["t9", "t10", "t11", "t12", "t13", "t14", "t15", "t16", "t17", "t18", "t19", "t20", "t21"]
+const timeSlot = TimeSlot
 
 const timeNum = timeList.length
 
-const priceList = [10, 10, 10, 10, 10, 20, 20, 20, 20, 20, 25, 25, 25] //要改！
+const priceList = PriceList
 
 let venueTypeCN = ref(String)
 let venueTypeEN = ref(String)
@@ -135,7 +137,7 @@ function selectDate(e) {
   count = 0
 
   // e = 0 说明选择了今天
-  if (e == 0) {
+  if (e === 0) {
     venueState.value = venueState1.value
     venueNum.value = venueNum1.value
     //使用日期改为今天
@@ -143,7 +145,7 @@ function selectDate(e) {
     uni.setStorageSync('todayOrTomorrow', 'today')
   }
   // e = 1 说明选择了明天
-  if (e == 1) {
+  if (e === 1) {
     venueState.value = venueState2.value
     venueNum.value = venueNum2.value
     //使用日期改为明天
@@ -153,47 +155,43 @@ function selectDate(e) {
 }
 
 //改变已选场地状态表
-function changeSelectedTable(venue_id, time) {
-  selectedTable.value[venue_id][time] = !selectedTable.value[venue_id][time]
+function changeSelectedTable(venueID, time) {
+  selectedTable.value[venueID][time] = !selectedTable.value[venueID][time]
 }
 
 //用来改变被选择场地按钮的样式
-function selectedButton(venue_id, time) {
+function selectedButton(venueID, time) {
   if (loginState == false) {
     uni.showToast({
-      title: '您还未登录！',
-      duration: 500,
-      mask: true,
+      title: '您还未登录！', duration: 500, mask: true,
       success: () => {
         setTimeout(() => {
-          uni.navigateTo({
-            url: '/pages/login-registration/login/user-login',
-          })
+          uni.navigateTo({url: '/pages/login-registration/login/user-login',})
         }, 500)
       }
     })
     return
   }
-  if (count == 0) { //0说明没有选择场地
-    changeSelectedTable(venue_id, time) //改变场地已选状态
-    firstSelectedVenue = venue_id
-  } else if (count == 1) { //1说明选择了一个场地
-    if (firstSelectedVenue != venue_id) { //说明第二次选择的场地和第一次选择的不同
-      changeSelectedTable(venue_id, time)
-      secondSelectedVenue = venue_id
+  if (count === 0) { //0说明没有选择场地
+    changeSelectedTable(venueID, time) //改变场地已选状态
+    firstSelectedVenue = venueID
+  }
+  if (count === 1) { //1说明选择了一个场地
+    if (firstSelectedVenue != venueID) { //说明第二次选择的场地和第一次选择的不同
+      changeSelectedTable(venueID, time)
+      secondSelectedVenue = venueID
     } else { //说明这次选择的场地和第一次相同
-      changeSelectedTable(venue_id, time)
+      changeSelectedTable(venueID, time)
     }
-  } else if (count == 2) { //说明已经选择了两个不同的场地
-    if (venue_id == firstSelectedVenue || venue_id == secondSelectedVenue) { //说明这次选择的场地是之前选择的两个之一，也就是不同的时间段
-      changeSelectedTable(venue_id, time)
+  }
+  if (count === 2) { //说明已经选择了两个不同的场地
+    if (venueID == firstSelectedVenue || venueID == secondSelectedVenue) { //说明这次选择的场地是之前选择的两个之一，也就是不同的时间段
+      changeSelectedTable(venueID, time)
     } else { //说明选择了第三个不同的场地
       uni.showToast({
-        title: '一次只能预订两个不同的场地！',
-        icon: 'none'
+        title: '一次只能预订两个不同的场地！', icon: 'none'
       })
     }
-
   }
   count = 0
   //计算已经选择的场地数量
@@ -284,11 +282,9 @@ function selectedButton(venue_id, time) {
             color: white;
             background-color: #11c53e;
           }
-
         }
       }
     }
-
   }
 
   .tip {
