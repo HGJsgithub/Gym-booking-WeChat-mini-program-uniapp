@@ -21,9 +21,9 @@ export default function changePassword(newPassword, userInfo, f1, f2, f3) {
                             });
                         }, 1000);
                     }
-                });
+                })
             } else {
-                console.log(res.data);
+                console.log(res.data)
                 uni.showToast({
                     title: '服务器好像开了小差...', icon: "error", duration: 1000, mask: true,
                 })

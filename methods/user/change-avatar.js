@@ -50,9 +50,10 @@ export function handleCrop(crop) {
             title: '上传成功', icon: 'success', duration: 1000, mask: true,
         })
     }).catch((err) => {
+        console.log(err)
         uni.hideLoading()
         uni.showToast({
-            title: err, duration: 1000, mask: true,
+            title: '保存头像出错了...', duration: 1000, mask: true,
         })
     }).finally(() => {
         setTimeout(() => {

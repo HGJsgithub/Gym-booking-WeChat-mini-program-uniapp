@@ -3,13 +3,9 @@ import {checkPhoneFormat, checkPasswordFormat} from "@/methods/user/user-utils";
 const baseUrl = getApp().globalData.baseUrl
 
 function ShowLoginSuccess(title) {
-    uni.showToast({
-        title: title, duration: 750, mask: true,
-    })
+    uni.showToast({title: title, duration: 750, mask: true,})
     setTimeout(() => {
-        uni.switchTab({
-            url: "/pages/my/my"
-        })
+        uni.switchTab({url: "/pages/my/my"})
     }, 750)
 }
 
@@ -22,34 +18,31 @@ function userAuth(phone, password) {
             "Content-Type": "application/x-www-form-urlencoded"
         }, success: (res) => {
             uni.hideLoading()
-            if (res.statusCode == 200) {
+            if (res.statusCode === 200) {
                 uni.setStorageSync('loginState', true)
                 uni.setStorageSync('userInfo', res.data.userInfo)
                 uni.setStorageSync('token', res.data.token)
                 ShowLoginSuccess('登录成功！')
-            } else {
-                if (res.data === "密码错误") {
-                    uni.showToast({
-                        title: '密码错误！', icon: 'none'
-                    })
-                    return
-                }
-                if (res.data === "您尚未注册") {
-                    uni.showToast({
-                        title: '您尚未注册！', icon: 'none'
-                    })
-                    return
-                }
-                uni.showToast({
-                    title: '服务器好像开了小差...', icon: "none", duration: 1000, mask: true,
-                })
+                return
             }
+            if (res.statusCode === 401) {
+                uni.showToast({title: '密码错误！', icon: 'none'})
+                return
+            }
+            if (res.statusCode === 405) {
+                uni.showToast({
+                    title: '您尚未注册！', icon: 'none'
+                })
+                return
+            }
+            uni.showToast({
+                title: '服务器好像开了小差...', icon: "none", duration: 1000, mask: true,
+            })
+
         }, fail: (err) => {
             uni.hideLoading()
             console.log(err)
-            uni.showToast({
-                title: '发送网络请求错误！', icon: 'none', duration: 1000, mask: true,
-            })
+            uni.showToast({title: '发送网络请求错误！', icon: 'none', duration: 1000, mask: true,})
         }
     })
 }

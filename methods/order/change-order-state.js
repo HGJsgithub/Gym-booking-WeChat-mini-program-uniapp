@@ -13,6 +13,11 @@ export default function changeOrderState(id, state) {
                     resolve()
                     return
                 }
+                if (res.statusCode === 500) {
+                    console.log(res.data)
+                    reject("服务器出错了...")
+                    return
+                }
                 reject("没有找到相应的订单！")
             }, fail: (err) => {
                 console.log(err)

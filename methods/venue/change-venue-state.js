@@ -23,15 +23,11 @@ export default function changeVenueState(venueTypeEN, todayOrTomorrow, count, id
     }
     return new Promise((resolve, reject) => {
         uni.request({
-            url: baseUrl + '/venue/state/change',
-            method: "POST",
-            data: updateRequest,
-            header: {
-                "Content-Type": "application/json",
-            },
+            url: baseUrl + '/venue/state/change', method: "POST", data: updateRequest,
+            header: {"Content-Type": "application/json",},
             success: (res) => {
                 console.log(res)
-                if (res.statusCode == 200) {
+                if (res.statusCode === 200) {
                     resolve()
                 } else {
                     reject(res.data)

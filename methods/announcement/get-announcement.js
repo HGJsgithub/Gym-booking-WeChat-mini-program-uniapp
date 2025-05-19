@@ -13,6 +13,11 @@ export default function getAnn(annList) {
                 return
             }
             annList.value = res.data
+        }, fail: (err) => {
+            console.log(err)
+            uni.showToast({
+                title: '获取公告时的网络不佳...', icon: "none", duration: 1750,
+            })
         }
     })
 }

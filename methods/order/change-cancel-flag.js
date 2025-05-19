@@ -7,6 +7,13 @@ export default function changeCancelFlag(id) {
             id: id
         }, header: {
             "Content-Type": "application/x-www-form-urlencoded", "token": token
+        }, success: (res) => {
+            if (res.statusCode !== 200) {
+                console.log("出现未知错误！")
+            }
+        }, fail: (err) => {
+            console.log(err)
+            uni.showToast({title: "网络请求错误！", icon: "none", duration: 2000})
         }
     })
 }

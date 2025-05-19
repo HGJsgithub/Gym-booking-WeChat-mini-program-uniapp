@@ -18,9 +18,13 @@ export default function deleteOrder(id, url) {
                                     url: url
                                 })
                             }, 250)
+                        } else {
+                            console.log(res.data)
+                            uni.showToast({title: "服务器似乎出了点问题...", icon: "none", duration: 1750,})
                         }
                     }, fail: (err) => {
                         console.log(err)
+                        uni.showToast({title: "网络似乎出了问题...", icon: "none", duration: 1250,})
                     }
                 })
             }

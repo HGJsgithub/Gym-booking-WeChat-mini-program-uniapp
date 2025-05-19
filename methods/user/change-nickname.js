@@ -24,9 +24,9 @@ export default function changeNickname(newNickname, userInfo) {
                             uni.switchTab({
                                 url: '/pages/my/my'
                             });
-                        }, 1000);
+                        }, 1000)
                     }
-                });
+                })
             } else {
                 console.log(res.data);
                 uni.showToast({

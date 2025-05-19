@@ -10,9 +10,7 @@ export default function getVenueState(venueTypeEN, venueState, venueNum, venueSt
             if (res.statusCode != 200) {
                 uni.hideLoading()
                 console.log(res.data)
-                uni.showToast({
-                    title: '查询场地状态表出错了...', icon: "none", mask: true,
-                })
+                uni.showToast({title: '查询场地状态表出错了...', icon: "none", mask: true,})
             } else {
                 venueState.value = res.data.today
                 venueNum.value = venueState.value.length
